@@ -17,7 +17,7 @@ class CreateTableCardapios extends Migration
             $table->bigIncrements('id');
             $table->string('nome');
             $table->float('preco');
-            $table->string('descricao');
+            $table->string('descricao')->nullable();
             $table->timestamp('data');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('usuarios');
