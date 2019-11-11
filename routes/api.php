@@ -18,15 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/usuarios', 'Api\UsuariosController@cadastrar');
-Route::get('/usuarios', 'Api\UsuariosController@logar');
+Route::post('/login', 'Api\UsuariosController@logar');
 
 
 Route::group(['middleware' => ['jwt']], function() {
     Route::group(['prefix' => 'cardapio'], function() {
-        Route::get('/', 'Api\CardapioController@listar');
-        Route::get('/{id}', 'Api\CardapioController@buscar');
-        Route::post('/', 'Api\CardapioController@cadastrar');
-        Route::put('/{id}', 'Api\CardapioController@atualizar');
-        Route::delete('/{id}', 'Api\CardapioController@deletar') ;
+        Route::get('/', 'Api\CardapiosController@listar');
+        Route::get('/{id}', 'Api\CardapiosController@buscar');
+        Route::post('/', 'Api\CardapiosController@cadastrar');
+        Route::put('/{id}', 'Api\CardapiosController@atualizar');
+        Route::delete('/{id}', 'Api\CardapiosController@deletar') ;
     });
 });

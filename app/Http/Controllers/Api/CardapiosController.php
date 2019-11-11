@@ -4,21 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Cardapio;
 
-class CardapioController extends ApiController
+class CardapiosController extends ApiController
 {
     public function listar(Request $req){
-        $id_usuario = $this->getUsuarioID($request);
+        $id_usuario = $this->getUsuarioID($req);
+        // $id_usuario = 1;
         $cardapio = Cardapio::where('id_usuario', $id_usuario)->get();
         return response()->json($cardapio, 200);
     }
     public function buscar(Request $req, int $id){
-        $id_usuario = $this->getUsuarioID($request);;
+        $id_usuario = $this->getUsuarioID($req);
+        // $id_usuario = 1;
         $cardapio = Cardapio::where('id', $id)->where('id_usuario', $id_usuario)->firstOrFail();
         return response()->json($cardapio, 200);
     }
     public function cadastrar(Request $req){
-        $validator = Validator::make([
+        $validator = Validator::make($req->cardapio, [
             $req->cardapio, [
                 'nome' => 'required',
                 'preco' => 'required',
@@ -37,9 +41,11 @@ class CardapioController extends ApiController
         return response()->json($cardapio, 201);
         
     }
+
     public function atualizar(Request $req, int $id){
-        $id_usuario = $this->getUsuarioID($request);;
-        $cardapio = Cardapio::where('id', $id)->where('id_usuario', $id_usuario)->firstOrFails();
+        $id_usuario = $this->getUsuarioID($req);
+        // $id_usuario = 1;
+        $cardapio = Cardapio::where('id', $id)->where('id_usuario', $id_usuario)->firstOrFail();
         $validator = Validator::make([
             $req->cardapio, [
                 'nome' => 'required',
@@ -59,8 +65,9 @@ class CardapioController extends ApiController
         return response()->json($cardapio, 201);
     }
     public function deletar(Request $req, int $id){
-        $id_usuario = $this->getUsuarioID($request);;
-        $cardapio = Cardapio::where('id', $id)->where('id_usuario', $id_usuario)->firstOrFails();
+        $id_usuario = $this->getUsuarioID($req);
+        // $id_usuario = 1;
+        $cardapio = Cardapio::where('id', $id)->where('id_usuario', $id_usuario)->firstOrFail();
         $cardapio->delete();
         return response()->json('Ação realizada com sucesso', 200);
     }

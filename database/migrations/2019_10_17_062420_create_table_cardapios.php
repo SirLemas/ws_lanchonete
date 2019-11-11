@@ -18,11 +18,11 @@ class CreateTableCardapios extends Migration
             $table->string('nome');
             $table->float('preco');
             $table->string('descricao');
-            $table->date('data')->default(timestamp());
-            $table->int('id_usuario');
+            $table->timestamp('data');
+            $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('usuarios');
-            $table->softDeletes();
-            $table->timestamps();
+            // $table->softDeletes();
+            // $table->timestamps();
         });
     }
 

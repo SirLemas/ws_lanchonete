@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Firebase\JWT\JWT;
 
 class JWTMiddleware
 {
@@ -13,8 +14,7 @@ class JWTMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next){
         try {
             $jwt = $request->header('Authorization');
             $dados = JWT::decode($jwt, ENV('jwt.senha'), ['HS256']);
