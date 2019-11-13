@@ -42,11 +42,9 @@ class CardapiosController extends ApiController
     public function atualizar(Request $req, int $id){
         $id_usuario = $this->getUsuarioID($req);
         $cardapio = Cardapio::where('id', $id)->where('id_usuario', $id_usuario)->firstOrFail();
-        $validator = Validator::make([
-            $req->cardapio, [
-                'nome' => 'required',
-                'preco' => 'required',
-            ]
+        $validator = Validator::make($req->cardapio, [
+            'nome' => 'required',
+            'preco' => 'required'
         ]);
 
         if($validator->fails()){
